@@ -1,0 +1,346 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Tajawal', 'Segoe UI', sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: white;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    margin-left: 15px;
+    transition: all 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+}
+
+.main-container {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Card Styles */
+.card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: white;
+    border-bottom: none;
+    font-weight: bold;
+    padding: 15px 20px;
+    border-radius: 12px 12px 0 0 !important;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+/* Form Styles */
+.form-floating {
+    margin-bottom: 20px;
+}
+
+.form-floating > .form-control {
+    padding: 1rem 0.75rem;
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+}
+
+.form-floating > label {
+    padding: 1rem 0.75rem;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Social Login Styles */
+.social-login {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.social-login p {
+    color: #666;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.social-login p::before,
+.social-login p::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.social-login p::before {
+    right: 0;
+}
+
+.social-login p::after {
+    left: 0;
+}
+
+.social-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-social {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s;
+}
+
+.btn-social:hover {
+    transform: translateY(-2px);
+}
+
+.btn-google {
+    background-color: #DB4437;
+}
+
+.btn-facebook {
+    background-color: #4267B2;
+}
+
+.btn-twitter {
+    background-color: #1DA1F2;
+}
+
+/* Steps Container Styles */
+.steps-container {
+    background-color: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: var(--dark-color);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: var(--light-color);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.step:hover {
+    background-color: #e9ecef;
+    transform: translateX(5px);
+}
+
+.step-number {
+    width: 35px;
+    height: 35px;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.step-text {
+    flex: 1;
+    font-size: 16px;
+}
+
+/* Dashboard Styles */
+.dashboard-stats .stat-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.dashboard-stats .stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-stats .stat-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* Project and Proposal Card Styles */
+.project-card,
+.proposal-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+/* User Info Styles */
+.user-info {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.user-icon {
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+/* Swiper Styles */
+.swiper {
+    padding-bottom: 50px;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #333;
+}
+
+/* Amount Styles */
+.amount {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--dark-color);
+    margin-top: 5px;
+}
+
+/* Footer Styles */
+footer {
+    margin-top: auto;
+}
+
+/* Registration Specific Styles */
+.password-requirements {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.password-requirements ul {
+    list-style: none;
+    padding-right: 0;
+    margin-bottom: 0;
+}
+
+.password-requirements li {
+    margin-bottom: 3px;
+}
+
+.password-requirements li i {
+    margin-left: 5px;
+    font-size: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 60px 15px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+
+    .amount {
+        font-size: 22px;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+} 
