@@ -71,7 +71,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        {{ $skills->links() }}
+                        {{-- {{ $skills->links() }} --}}
                     </div>
                 </div>
             </div>

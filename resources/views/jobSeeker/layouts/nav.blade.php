@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="dashbord.html">
+        <a class="navbar-brand" href="{{route('jobSeeker.dash')}}">
             <i class="fas fa-chart-line"></i> وظيفة
         </a>
 
@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="add-project.html"><i class="fas fa-add"></i> أضف مشروع</a>
+                    <a class="nav-link" href="{{route('worksample.add')}}"><i class="fas fa-add"></i> أضف مشروع</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="browse-projects.html"><i class="fas fa-file-alt"></i> تصفح المشاريع</a>
@@ -23,13 +23,14 @@
                     <a class="nav-link" href="my-projects.html"><i class="fas fa-briefcase"></i> أعمالي</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="portfolio.html"><i class="fas fa-images"></i> معرضي</a>
+                    <a class="nav-link" href="{{route('worksample.index')}}"><i class="fas fa-images"></i> معرضي</a>
                 </li>
             </ul>
 
             <ul class="navbar-nav">
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                <li class="nav-item dropdown">
+                    {{-- this class use in <a> dropdown-toggle  for show (>)  --}}
+                    <a class="nav-link " href="#" id="navbarDropdownMenuLink" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-bell"></i>
                         <span class="badge bg-danger">5</span>
@@ -41,7 +42,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button"
+                    <a class="nav-link " href="#" id="navbarDropdownMenuLink2" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-envelope"></i>
                         <span class="badge bg-danger">3</span>
@@ -51,13 +52,32 @@
                         <li><a class="dropdown-item" href="#">رسالة 2</a></li>
                         <li><a class="dropdown-item" href="#">رسالة 3</a></li>
                     </ul>
-                </li> --}}
+                </li>
                 
                 <li class="nav-item">
-                    <div class="user-info">
-                        <i class="fas fa-user-circle user-icon"></i>
-                        <span>مرحباً، {{Auth::user()->name}}</span>
-                    </div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link " href="#" id="navbarDropdownMenuLink2" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{-- show user image profile --}}
+                            @if(Auth()->user()->jobSeeker->profile_picture)
+                                <img src="{{ asset('storage/' . Auth()->user()->jobSeeker->profile_picture) }}" class="rounded-circle" style="width: 30px; height: 30px;" alt="">
+                            @else
+                                <i class="fas fa-user-circle user-icon"></i>
+                            @endif
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink2">
+                            <li><a class="dropdown-item" href="{{route('profile.show',Auth()->user()->id)}}"> الملف الشخصي</a></li>
+                            
+                            <li><a class="dropdown-item" href="{{route('profile.update-password')}}"> تغيير كلمة المرور</a></li>
+                            
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button class="dropdown-item"  type="submit">تسجيل خروج</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
                 </li>
 
             </ul>

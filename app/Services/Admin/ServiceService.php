@@ -10,7 +10,8 @@ class ServiceService{
     }
     
     public function getAll(){
-        return  Service::paginate(5);
+        // return  Service::paginate(5);
+        return  Service::get();
     }
 
     public function getById($id)

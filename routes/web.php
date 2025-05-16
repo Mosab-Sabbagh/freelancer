@@ -6,13 +6,15 @@ use App\Http\Controllers\Admin\ManagementUserController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\WorkspaceController;
-use App\Http\Controllers\ProfileController;
+// use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JobSeeker\ProfileController;
+use App\Http\Controllers\JobSeeker\WorkSamplesController;
 use Illuminate\Support\Facades\Route;
 
 
 
 Route::get('/dashboard', function () {
-    return redirect()->route('home'); // أو تقدر تخليه فارغ
+    return redirect()->route('home'); 
 })->middleware(['auth', 'role.redirect'])->name('dashboard');
 
 
@@ -55,10 +57,15 @@ Route::get('/supporter/dash', function () {
 
 // end test middleware
 
-// edit profile
+// middleware job_seeker or admin 
+Route::get('jobseeker/info/{id}', [ProfileController::class, 'info'])->name('profile.info');
+Route::get('update-password', [ProfileController::class, 'updatePassword'])->middleware(['auth','job_seeker'])->name('profile.update-password');
+Route::get('profile/{id}', [ProfileController::class, 'profile'])->middleware(['auth','job_seeker'])->name('profile.show');
+
+// job_seeker profile
 Route::middleware(['auth', 'job_seeker'])->prefix('jobseeker')->name('jobSeeker.')->group(function () {
-    Route::get('profile', [\App\Http\Controllers\JobSeeker\ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('profile', [\App\Http\Controllers\JobSeeker\ProfileController::class, 'update'])->name('profile.update');
+    Route::get('profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 
@@ -99,6 +106,7 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('/add', [ManagementUserController::class, 'add'])->name('create');
         Route::post('/', [ManagementUserController::class, 'store'])->name('store');
         Route::delete('/delete/{id}', [ManagementUserController::class, 'destroy'])->name('destroy');
+        Route::get('/show/{id}', [ManagementUserController::class, 'show'])->name('show');
 
 
         Route::get('/edit/{id}', [ManagementUserController::class, 'edit'])->name('edit');
@@ -119,4 +127,11 @@ Route::middleware(['auth','admin'])->group(function () {
 });
 
 
+Route::get('worksample', [WorkSamplesController::class, 'add'])->middleware(['auth','job_seeker'])->name('worksample.add');
+Route::post('worksample', [WorkSamplesController::class, 'store'])->middleware(['auth','job_seeker'])->name('worksample.store');
+Route::get('worksamples', [WorkSamplesController::class, 'index'])->middleware(['auth','job_seeker'])->name('worksample.index');
+Route::get('worksample/{id}', [WorkSamplesController::class, 'show'])->middleware(['auth','job_seeker'])->name('worksample.show');
+Route::Delete('worksample/{id}', [WorkSamplesController::class, 'destroy'])->middleware(['auth','job_seeker'])->name('worksample.destroy');
+Route::get('worksample/edit/{id}', [WorkSamplesController::class, 'edit'])->middleware(['auth','job_seeker'])->name('worksample.edit');
+Route::PUT('worksample/{id}', [WorkSamplesController::class, 'update'])->middleware(['auth','job_seeker'])->name('worksample.update');
 

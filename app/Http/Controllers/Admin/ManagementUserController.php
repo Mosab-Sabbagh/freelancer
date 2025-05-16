@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\Admin\ManagementUserServices;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Services\JobSeeker\JobSeekerService;
+use App\UserRole;
 use Exception;
 
 class ManagementUserController extends Controller
@@ -51,6 +53,18 @@ class ManagementUserController extends Controller
         }catch(Exception $e)
         {
             return redirect()->back()->with('error', 'حدث خطأ أثناء حذف المستخدم');
+        }
+    }
+
+
+    public function show(JobSeekerService $jobSeeker,ManagementUserServices $management_user ,$id)
+    {
+        $user = $management_user->getById($id);
+        if($user->user_type == UserRole::JOB_SEEKER){
+            $seeker = $jobSeeker->infoSeeker($id);
+            return view('admin.user.info',compact("seeker","user"));
+        }else{
+            return "ليس بعد ";
         }
     }
 }

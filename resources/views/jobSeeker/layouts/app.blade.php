@@ -16,6 +16,9 @@
     
     <!-- Custom Dashboard CSS -->
     <link rel="stylesheet" href="{{ asset('css/JobSeeker/dashbord.css') }}">
+        <!-- sweetalert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     @yield('style')
 </head>
@@ -27,6 +30,9 @@
 </div>
 
 @include('jobSeeker.layouts.footer')
+
+@include('alert');
+
 @yield('script')
 
 <!-- Bootstrap Bundle with Popper -->

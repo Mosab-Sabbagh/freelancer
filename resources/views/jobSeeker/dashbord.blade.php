@@ -1,28 +1,48 @@
 @extends('jobSeeker.layouts.app')
+@section('style')
+
+@endsection
 @section('title')
     {{Auth::user()->name}} لوحة تحكم
 @endsection
 
 @section('content')
     <div class="container main-container">
+        @if (session(('status')))
+            <div class="alert alert-success">
+                {{session('status')}}
+            </div>
+        @endif
         <div class="row">
 
             <!-- الجزء الجانبي -->
             <div class="col-lg-4 ">
-                <div class="card">
-                    <img src="/images/IMG-20230619-WA0046.jpg" class="card-img-top rounded-circle" alt="صورة المستخدم"
-                        style="width: 150px; height: 150px; object-fit: cover; margin: 0 auto;">
 
-                    <div class="card-body text-center">
-                        <h5 class="card-title">{{Auth::user()->name}}</h5>
-                        <a href="{{route('jobSeeker.profile.edit')}}" class="btn btn-primary btn-sm">تعديل الملف الشخصي</a>
+                <div class="">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            @if(Auth::user()->jobSeeker->profile_picture)
+                                <img src="{{ asset('storage/' . Auth::user()->jobSeeker->profile_picture) }}" 
+                                     class="rounded-circle mb-3"
+                                     style="width: 200px; height: 200px; object-fit: cover;"
+                                     alt="صورة المستخدم">
+                            @else
+                                <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center bg-light"
+                                     style="width: 200px; height: 200px;">
+                                    <i class="fas fa-user fa-4x text-muted"></i>
+                                </div>
+                            @endif
+                            <h4 class="mb-0">{{Auth::user()->name}} {{Auth::user()->last_name}}</h4>
+                            <p class="text-muted">{{Auth::user()->email}}</p>
+                            <a href="{{route('jobSeeker.profile.edit',Auth::user()->id)}}" class="btn btn-primary btn-sm">تعديل الملف الشخصي</a>
+                        </div>
                     </div>
-
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit">تسجيل خروج</button>
-                    </form>
                 </div>
+
+
+
+
+
                 <div class="steps-container">
                     <h3 class="section-title">
                         <i class="fas fa-tasks"></i> إعداد اكمال التصاريح

@@ -4,29 +4,44 @@ namespace App\Services\JobSeeker;
 
 use App\Models\User;
 use App\Models\JobSeeker;
+use App\UserRole;
 
 class JobSeekerService
 {
-    public function updateProfile(User $user, array $data)
+    public function updateProfile($user_id, array $data)
     {
-        $profile = $user->jobSeekerProfile ?? new JobSeeker(['user_id' => $user->id]);
+        // $user->name = $data['name'];
+        // $user->last_name = $data['last_name'];
+        // $user->email = $data['email'];
+        // $user->phone = $data['phone'];
+        // $user->save();
 
-        $profile->bio = $data['bio'] ?? null;
-        $profile->birth_date = $data['birth_date'] ?? null;
-        $profile->skills = $data['skills'] ?? [];
+        $jobSeeker = JobSeeker::where('user_id', $user_id)->first();
+        if (!$jobSeeker) {
+            $jobSeeker = new JobSeeker();
+            $jobSeeker->user_id = $user_id;
+        }
+        $jobSeeker->bio = $data['bio'];
+        $jobSeeker->is_available = $data['is_available'] ?? true;
+        $jobSeeker->hourly_rate = $data['hourly_rate'];
+        if (isset($data['profile_picture'])) {
+            $path = $data['profile_picture']->store('profiles', 'public');
+            $jobSeeker->profile_picture = $path;
+        }
+        $jobSeeker->experience_level = $data['experience_level'];
+        $jobSeeker->save();
 
-        // صورة
-        if (request()->hasFile('profile_picture')) {
-            $path = request()->file('profile_picture')->store('profiles', 'public');
-            $profile->profile_picture = $path;
+        if (isset($data['skills'])) {
+            $jobSeeker->skills()->sync($data['skills']);
         }
 
-        $profile->specialization = $data['specialization'] ?? null;
-        $profile->field = $data['field'] ?? null;
-        $profile->experience_level = $data['experience_level'] ?? null;
-        $profile->available = isset($data['available']) ? true : false;
-        $profile->hourly_rate = $data['hourly_rate'] ?? null;
+        if (isset($data['services'])) {
+            $jobSeeker->services()->sync($data['services']);
+        }
+    }
 
-        $profile->save();
+    public function infoSeeker($id)
+    {
+        return  JobSeeker::with(['skills','services'])->where('user_id',$id)->first();
     }
 }
