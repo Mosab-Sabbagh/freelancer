@@ -7,7 +7,8 @@
     
     <!-- Bootstrap RTL CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
-    
+    <link rel="stylesheet" href="{{asset('css/bootsrab/bootsrab.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootsrab/bootsrab.js')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
@@ -134,42 +135,7 @@
 
         <!-- Page Content -->
         <div class="container-fluid py-4">
-            {{-- @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            @endif
-
-
-            @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            @endif --}}
-
-            <script>
-                @if(session('success'))
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'نجاح',
-                        text: '{{ session('success') }}',
-                        confirmButtonText: 'حسنًا'
-                    });
-                @endif
             
-                @if(session('error'))
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'خطأ',
-                        text: '{{ session('error') }}',
-                        confirmButtonText: 'موافق'
-                    });
-                @endif
-            </script>
-            
-
             @yield('content')
         </div>
     </main>
@@ -200,27 +166,7 @@
         });
     </script>
 
-    <script>
-        document.querySelectorAll('.delete-form').forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'هل أنت متأكد؟',
-                    text: "لن تتمكن من التراجع عن هذا!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'نعم، احذفه!',
-                    cancelButtonText: 'إلغاء'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-                });
-            });
-        });
-    </script>
+        @include('alert')
         @yield('script')
     @stack('scripts')
 </body>

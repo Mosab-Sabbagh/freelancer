@@ -13,4 +13,6 @@ class Workspace extends Model
         'phone_number',
         'available_time'
     ];
+
+    
 }

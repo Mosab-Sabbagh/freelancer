@@ -10,7 +10,8 @@ class SkillService{
 
     public function getAll()
     {
-        return  Skill::paginate(5);
+        // return  Skill::paginate(5);
+        return  Skill::get();
     }
 
     public function getById($id)

@@ -10,6 +10,6 @@ class Service extends Model
 
     public function jobSeekers()
     {
-        return $this->belongsToMany(JobSeeker::class, 'job_seeker_services');
+        return $this->belongsToMany(JobSeeker::class, 'job_seeker_service');
     }
 }

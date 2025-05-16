@@ -60,8 +60,7 @@
                             </td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a href="#" class="btn btn-sm btn-info" title="عرض">
-                                        {{-- <a href="{{ route('admin.user.show', $user->id) }}" class="btn btn-sm btn-info" title="عرض"> --}}
+                                    <a href="{{ route('admin.user.show',  $user->id) }}" class="btn btn-sm btn-info" title="عرض">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     <button type="button" class="btn btn-sm btn-warning toggle-status" 

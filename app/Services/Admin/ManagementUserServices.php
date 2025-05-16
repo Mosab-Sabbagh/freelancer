@@ -27,4 +27,9 @@ class ManagementUserServices{
         $user = User::find($id);
         $user->delete();
     }
+
+    public function getById($id)
+    {
+        return User::findOrFail($id);
+    }
 }

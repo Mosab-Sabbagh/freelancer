@@ -9,17 +9,13 @@ class JobSeeker extends Model
 
 
 
-    protected $fillable = ['user_id', 'job_field_id', 'bio'];
+    protected $fillable = ['user_id', 'bio','profile_picture','is_available','hourly_rate','experience_level'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function jobField()
-    {
-        return $this->belongsTo(JobField::class);
-    }
 
     public function skills()
     {
@@ -28,6 +24,6 @@ class JobSeeker extends Model
 
     public function services()
     {
-        return $this->belongsToMany(Service::class, 'job_seeker_services');
+        return $this->belongsToMany(Service::class, 'job_seeker_service');
     }
 }

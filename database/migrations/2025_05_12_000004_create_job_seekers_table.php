@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
             // مجال العمل، optional
-            $table->foreignId('job_field_id')->nullable()->constrained()->nullOnDelete();
+            // $table->foreignId('job_field_id')->nullable()->constrained()->nullOnDelete();
 
             $table->text('bio')->nullable();
 
