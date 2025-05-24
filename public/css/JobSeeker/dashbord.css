@@ -38,7 +38,8 @@ body {
 .nav-link:hover,
 .nav-link.active {
     color: white;
-    transform: translateY(-2px);
+    font-weight: bold;
+    /* background-color: var(--secondary-color); */
 }
 
 /* Main Container Styles */
@@ -57,9 +58,9 @@ body {
     background-color: white;
 }
 
-.card:hover {
+/* .card:hover {
     transform: translateY(-5px);
-}
+} */
 
 .card-header {
     background-color: var(--primary-color);
@@ -104,10 +105,6 @@ body {
     transition: transform 0.3s;
 }
 
-.project-card:hover,
-.proposal-card:hover {
-    transform: translateY(-5px);
-}
 
 .project-title {
     color: var(--dark-color);
@@ -180,11 +177,11 @@ body {
     transition: all 0.3s;
 }
 
-.btn-primary:hover {
+/* .btn-primary:hover {
     background-color: var(--secondary-color);
     border-color: var(--secondary-color);
     transform: translateY(-2px);
-}
+} */
 
 .btn-apply {
     background-color: var(--primary-color);
@@ -259,7 +256,7 @@ body {
     font-weight: 600;
 }
 
-.status-active {
+/* .status-active {
     background-color: var(--success-color);
     color: white;
 }
@@ -272,7 +269,7 @@ body {
 .status-completed {
     background-color: #17a2b8;
     color: white;
-}
+} */
 
 .status-accepted {
     background-color: var(--success-color);
@@ -359,9 +356,9 @@ body {
     height: 100%;
 }
 
-.portfolio-card:hover {
+/* .portfolio-card:hover {
     transform: translateY(-5px);
-}
+} */
 
 .portfolio-title {
     font-size: 1.2rem;
@@ -572,3 +569,8 @@ strong {
             border-bottom: none;
         }
 } 
+/* footer{
+position: fixed;
+bottom: 0;
+width: 100%;
+} */

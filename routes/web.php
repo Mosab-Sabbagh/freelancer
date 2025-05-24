@@ -6,8 +6,14 @@ use App\Http\Controllers\Admin\ManagementUserController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\WorkspaceController;
+use App\Http\Controllers\JobPoster\Campany\CompanyController;
 // use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JobPoster\DadshbordController;
+use App\Http\Controllers\JobPoster\JobPosterController;
+use App\Http\Controllers\JobPoster\ProjectController;
+use App\Http\Controllers\JobSeeker\DashbordSeekerController;
 use App\Http\Controllers\JobSeeker\ProfileController;
+use App\Http\Controllers\JobSeeker\ProjectBrowseController;
 use App\Http\Controllers\JobSeeker\WorkSamplesController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,20 +42,18 @@ Route::get('/', function () {
     return view('guest.index');
 })->name('home');
 
-Route::get('/admin/dashbord', [DashboardController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin/dashbord', [DashboardController::class, 'index'])->middleware(['auth','admin'])->name('admin.dashboard');
+Route::get('/jobSeeker/dash', [DashbordSeekerController::class, 'index'])->middleware(['auth','job_seeker'])->name('jobSeeker.dash');;
 
 // start test middleware
 // Route::get('/admin/dash', function () {
 //     return view('admin.dashboard');
 // })->middleware(['auth','admin'])->name('admin.dashboard');
 
-Route::get('/jobPoster/dash', function () {
-    return view('jobPoster.dash');
-})->middleware(['auth','job_poster'])->name('jobPoster.dash');
 
-Route::get('/jobSeeker/dash', function () {
-    return view('jobSeeker.dashbord');
-})->middleware(['auth','job_seeker'])->name('jobSeeker.dash');
+// Route::get('/jobSeeker/dash', function () {
+//     return view('jobSeeker.dashbord');
+// })->middleware(['auth','job_seeker'])->name('jobSeeker.dash');
 
 Route::get('/supporter/dash', function () {
     return view('supporter.dash');
@@ -135,3 +139,25 @@ Route::Delete('worksample/{id}', [WorkSamplesController::class, 'destroy'])->mid
 Route::get('worksample/edit/{id}', [WorkSamplesController::class, 'edit'])->middleware(['auth','job_seeker'])->name('worksample.edit');
 Route::PUT('worksample/{id}', [WorkSamplesController::class, 'update'])->middleware(['auth','job_seeker'])->name('worksample.update');
 
+
+Route::get('testDash/jobPoster', function () {
+    return view('jobPoster.dashbord');
+})->name('jobPoster.dashboard');
+
+Route::middleware(['auth', 'job_poster'])->group(function () {
+    Route::get('/jobposter/profile/edit', [JobPosterController::class, 'edit'])->name('jobposter.edit');
+    Route::post('/jobposter/profile/update/{id}', [JobPosterController::class, 'update'])->name('jobposter.update');
+    Route::get('/jobposter/profile/{id}', [JobPosterController::class, 'profile'])->name('jobposter.profile');
+});
+
+    Route::get('/jobPoster/dash', [DadshbordController::class, 'index'])->middleware(['auth', 'job_poster'])->name('jobPoster.dash');
+    Route::get('jobposter/projects/', [ProjectController::class, 'index'])->middleware(['auth', 'job_poster'])->name('jobposter.projects.index');
+    Route::get('jobposter/projects/create', [ProjectController::class, 'create'])->middleware(['auth', 'job_poster'])->name('jobposter.projects.create');
+    Route::post('jobposter/projects/store', [ProjectController::class, 'store'])->middleware(['auth', 'job_poster'])->name('jobposter.projects.store');
+
+Route::get('jobseeker/projects', [ProjectBrowseController::class, 'index'])->middleware(['auth', 'job_seeker'])->name('jobseeker.projects.index');
+Route::get('/project/details/{id}', [ProjectBrowseController::class, 'details'])->middleware(['auth', 'job_seeker'])->name('project.details');
+
+
+// Route::get('/jobposter/company/edit', [JobPosterController::class, 'edit'])->name('jobposter.edit');
+Route::post('/jobposter/update/{id}', [CompanyController::class, 'update'])->name('company.update');

@@ -1,4 +1,3 @@
-<div class="container-fluid py-4">
     <script>
         @if(session('success'))
             Swal.fire({
@@ -40,4 +39,3 @@
             });
         });
     </script>
-</div>

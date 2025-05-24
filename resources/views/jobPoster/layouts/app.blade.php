@@ -18,23 +18,18 @@
     <link rel="stylesheet" href="{{ asset('css/JobSeeker/dashbord.css') }}">
         <!-- sweetalert2 -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-        {{-- jquery --}}
-        <script src="{{asset('jquery/jquery-3.6.0.min.js')}}"></script>
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-
 
 
     @yield('style')
 </head>
 
-    @include('JobSeeker.layouts.nav')
+    @include('JobPoster.layouts.nav')
 
 <div class="container mt-5">
     @yield('content')
 </div>
 
-@include('jobSeeker.layouts.footer')
+@include('JobPoster.layouts.footer')
 
 @include('alert')
 
@@ -46,5 +41,4 @@
 
 <!-- Font Awesome JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-
     {{-- <script src="{{asset('fontawesome/fontawesome.js')}}"></script> --}}

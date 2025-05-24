@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Admin\ManagementUserServices;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Services\JobPoster\JobPosterService;
 use App\Services\JobSeeker\JobSeekerService;
 use App\UserRole;
 use Exception;
@@ -57,14 +58,17 @@ class ManagementUserController extends Controller
     }
 
 
-    public function show(JobSeekerService $jobSeeker,ManagementUserServices $management_user ,$id)
+    public function show(JobSeekerService $jobSeeker,ManagementUserServices $management_user ,JobPosterService $jobPosterService,$id)
     {
         $user = $management_user->getById($id);
         if($user->user_type == UserRole::JOB_SEEKER){
             $seeker = $jobSeeker->infoSeeker($id);
             return view('admin.user.info',compact("seeker","user"));
+        }elseif($user->user_type == UserRole::JOB_POSTER){
+            $poster = $jobPosterService->info($id);
+            return view('admin.user.infoPoster',compact('poster','user'));
         }else{
-            return "ليس بعد ";
+            return "معلومات حول الداعم، ليس بعد";
         }
     }
 }

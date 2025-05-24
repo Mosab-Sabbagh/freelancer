@@ -40,7 +40,7 @@
                     <div class="row mb-4">
                         <div class="col-md-12">
                             <h5 class="card-title mb-3"><i class="fas fa-info-circle"></i> نبذة شخصية</h5>
-                            <p class="card-text">{{$seeker->bio}}</p>
+                            <p class="card-text" style="white-space: pre-line;">{{$seeker->bio}}</p>
                         </div>
                     </div>
 

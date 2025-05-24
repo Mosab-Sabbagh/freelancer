@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="{{route('jobSeeker.dash')}}">
+        <a class="navbar-brand" href="{{route('jobPoster.dash')}}">
             <i class="fas fa-chart-line"></i> وظيفة
         </a>
 
@@ -11,19 +11,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('worksample.add')}}"><i class="fas fa-add"></i> أضف مشروع</a>
+                    <a class="nav-link" href="#"><i class="fas fa-add"></i> اضافة وظيفة </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('jobseeker.projects.index')}}"><i class="fas fa-file-alt"></i> تصفح المشاريع</a>
+                    <a class="nav-link" href="#"><i class="fas fa-file-alt"></i>  عرض الوظائف</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="my-proposals.html"><i class="fas fa-tags"></i> عروضي</a>
+                    <a class="nav-link" href="{{route('jobposter.projects.create')}}"><i class="fas fa-tags"></i> اضافة خدمة</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="my-projects.html"><i class="fas fa-briefcase"></i> أعمالي</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('worksample.index')}}"><i class="fas fa-images"></i> معرضي</a>
+                    <a class="nav-link" href="{{route('jobposter.projects.index')}}"><i class="fas fa-briefcase"></i> عرض الخدمات</a>
                 </li>
             </ul>
 
@@ -59,16 +56,18 @@
                         <a class="nav-link " href="#" id="navbarDropdownMenuLink2" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {{-- show user image profile --}}
-                            @if(Auth()->user()->jobSeeker->profile_picture)
-                                <img src="{{ asset('storage/' . Auth()->user()->jobSeeker->profile_picture) }}" class="rounded-circle" style="width: 30px; height: 30px;" alt="">
+                            @if(Auth()->user()->jobPoster->profile_image)
+                                <img src="{{ asset('storage/' . Auth()->user()->jobPoster->profile_image) }}" class="rounded-circle" style="width: 30px; height: 30px;" alt="">
                             @else
                                 <i class="fas fa-user-circle user-icon"></i>
-                            @endif
+                            @endif 
+                            {{-- <i class="fas fa-user-circle user-icon"></i> --}}
+
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink2">
-                            <li><a class="dropdown-item" href="{{route('profile.show',Auth()->user()->id)}}"> الملف الشخصي</a></li>
+                            <li><a class="dropdown-item" href="{{route('jobposter.profile',Auth()->user()->jobPoster->id )}}"> الملف الشخصي</a></li>
                             
-                            <li><a class="dropdown-item" href="{{route('profile.update-password')}}"> تغيير كلمة المرور</a></li>
+                            <li><a class="dropdown-item" href="#"> تغيير كلمة المرور</a></li>
                             
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
