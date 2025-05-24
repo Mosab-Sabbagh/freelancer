@@ -12,4 +12,9 @@ class Service extends Model
     {
         return $this->belongsToMany(JobSeeker::class, 'job_seeker_service');
     }
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
 }

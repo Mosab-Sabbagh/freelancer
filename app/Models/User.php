@@ -60,4 +60,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(JobSeeker::class);
     }
+    public function jobPoster()
+    {
+        return $this->hasOne(JobPoster::class,'user_id','id');
+    }
 }

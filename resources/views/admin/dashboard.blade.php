@@ -52,7 +52,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <h6 class="text-muted mb-2">الشركات المسجلة</h6>
-                    <h3 class="mb-0">5</h3>
+                    <h3 class="mb-0">{{$totalCompanies}}</h3>
                 </div>
                 <div class="bg-warning bg-opacity-10 p-3 rounded">
                     <i class="fas fa-building text-warning fa-2x"></i>
@@ -68,8 +68,7 @@
         <div class="admin-card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">آخر المستخدمين المسجلين</h5>
-                {{-- <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-primary">عرض الكل</a> --}}
-                <a href="#" class="btn btn-sm btn-primary">عرض الكل</a>
+                <a href="{{ route('admin.user.index') }}" class="btn btn-sm btn-primary">عرض الكل</a>
             </div>
             <div class="table-responsive">
                 <table class="admin-table">
@@ -80,7 +79,7 @@
                             <th>تاريخ التسجيل</th>
                         </tr>
                     </thead>
-                    {{-- <tbody>
+                    <tbody>
                         @foreach($latestUsers as $user)
                         <tr>
                             <td>{{ $user->name }}</td>
@@ -88,31 +87,7 @@
                             <td>{{ $user->created_at->format('Y-m-d') }}</td>
                         </tr>
                         @endforeach
-                    </tbody> --}}
-
-                    <tbody>
-                        <tr>
-                            <td>محمد عبد العالي</td>
-                            <td>mohamed@gmail.com</td>
-                            <td>2025-05-12</td>
-                        </tr>
-                        <tr>
-                            <td>محمد عبد العالي</td>
-                            <td>mohamed@gmail.com</td>
-                            <td>2025-05-12</td>
-                        </tr>
-                        <tr>
-                            <td>محمد عبد العالي</td>
-                            <td>mohamed@gmail.com</td>
-                            <td>2025-05-12</td>
-                        </tr>
-                        <tr>
-                            <td>محمد عبد العالي</td>
-                            <td>mohamed@gmail.com</td>
-                            <td>2025-05-12</td>
-                        </tr>
                     </tbody>
-
                 </table>
             </div>
         </div>

@@ -17,8 +17,8 @@ class DashboardController extends Controller
             'totalUsers' => User::count(),
             // 'activeJobs' => Job::where('status', 'active')->count(),
             // 'jobApplications' => JobApplication::count(),
-            // 'totalCompanies' => Company::count(),
-            // 'latestUsers' => User::latest()->take(5)->get(),
+            'totalCompanies' => Company::count(),
+            'latestUsers' => User::latest()->take(5)->get(),
             // 'latestJobs' => Job::with('company')->latest()->take(5)->get(),
         ];
         

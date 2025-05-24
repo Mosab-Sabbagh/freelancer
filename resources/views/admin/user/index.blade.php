@@ -20,6 +20,7 @@
                             <th>الاسم الأول</th>
                             <th>الاسم الثاني</th>
                             <th>البريد الإلكتروني</th>
+                            <th> تاريخ التسجيل</th>
                             <th>نوع المستخدم</th>
                             <th>الحالة</th>
                             <th>الإجراءات</th>
@@ -32,6 +33,7 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->last_name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->created_at->format('Y-m-d') }}</td>
                             <td>
                                 <span class="badge bg-{{ $user->user_type === 'admin' ? 'danger' : 
                                     ($user->user_type === 'supporter' ? 'warning' :
@@ -94,70 +96,5 @@
         </div>
     </div>
 </div>
-{{-- 
-@push('scripts')
-<script>
-    // حذف المستخدم
-    $('.delete-user').click(function() {
-        const userId = $(this).data('id');
-        
-        Swal.fire({
-            title: 'هل أنت متأكد؟',
-            text: "لا يمكن التراجع عن هذا الإجراء!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'نعم، احذف!',
-            cancelButtonText: 'إلغاء'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: `/admin/user/delete/${userId}`,
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function() {
-                        Swal.fire('تم الحذف!', 'تم حذف المستخدم بنجاح.', 'success');
-                        location.reload();
-                    }
-                });
-            }
-        });
-    });
-
-    // تغيير حالة المستخدم
-    $('.toggle-status').click(function() {
-        const userId = $(this).data('id');
-        const currentStatus = $(this).data('status');
-        
-        Swal.fire({
-            title: 'هل أنت متأكد؟',
-            text: `هل تريد ${currentStatus ? 'تعطيل' : 'تفعيل'} هذا المستخدم؟`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'نعم',
-            cancelButtonText: 'إلغاء'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: `/admin/user/toggle-status/${userId}`,
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function() {
-                        Swal.fire('تم!', 'تم تغيير حالة المستخدم بنجاح.', 'success');
-                        location.reload();
-                    }
-                });
-            }
-        });
-    });
-</script>
-@endpush --}}
 @endsection
 

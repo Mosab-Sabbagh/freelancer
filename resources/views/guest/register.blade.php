@@ -44,7 +44,7 @@
                             </div>
 
                             <div class="form-floating mb-3">
-                                <select class="form-select" name="user_type" id="accountType">
+                                <select class="form-select" name="user_type" id="userType">
                                     <option value="" disabled selected> </option>
                                     <option value="job_seeker" {{ old('user_type') == 'job_seeker' ? 'selected' : '' }}>باحث
                                         عن عمل
@@ -59,6 +59,12 @@
                                 @error('user_type')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
+                            </div>
+                            
+                            <div class=" mb-3" id="seekerTypeSection" style="display:none;">
+                                <label style="color: red">حدد صفتك</label>
+                                <input type="radio" name="poster_type" value="individual" id="individual" checked> <label for="individual">فرد</label>
+                                <input type="radio" name="poster_type" value="company" id="company"> <label for="company">شركة</label>
                             </div>
 
                             <div class="form-floating mb-3">
@@ -110,4 +116,13 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+    document.getElementById('userType').addEventListener('change', function() {
+        const seekerTypeSection = document.getElementById('seekerTypeSection');
+        seekerTypeSection.style.display = this.value === 'job_poster' ? 'block' : 'none';
+    });
+</script>
 @endsection
