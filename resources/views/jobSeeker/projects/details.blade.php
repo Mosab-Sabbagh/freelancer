@@ -20,25 +20,26 @@
                         </p>
                     @endif
                 </div>
-                {{-- form --}}
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="apply-form-card p-4 border rounded-3 shadow-sm bg-white">
                             <h4 class="fw-bold mb-4">تقديم عرض للمشروع</h4>
-                            <form>
+                            <form action="{{route('project.application.store',$project->id)}}" method="post">
+                                @csrf
+                                <input type="hidden" name="job_poster_id" value="{{$project->jobPoster->id}}">
                                 <div class="d-flex justify-content-between">
                                 <div class="mb-3">
                                     <label for="deliveryTime" class="form-label">مدة التسليم <span style="color: red">*</span></label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="deliveryTime" placeholder="0" required>
+                                        <input type="number" class="form-control" name="execution_days" id="deliveryTime" placeholder="0" required>
                                         <span class="input-group-text">أيام</span>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="deliveryTime" class="form-label"> قيمة العرض <span style="color: red">*</span></label>
+                                    <label for="deliveryPrice" class="form-label"> قيمة العرض <span style="color: red">*</span></label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="deliveryTime" placeholder="0" required>
+                                        <input type="number" class="form-control" name="proposed_price" id="deliveryPrice" placeholder="0" required>
                                         <span class="input-group-text">$</span>
                                     </div>
                                 </div>
@@ -54,7 +55,7 @@
                             </div>
                                 <div class="mb-3">
                                     <label for="offerDetails" class="form-label">تفاصيل عرضك <span style="color: red">*</span></label>
-                                    <textarea class="form-control" id="offerDetails" rows="5" required></textarea>
+                                    <textarea class="form-control" name="notes" id="offerDetails" rows="5" required></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-apply">
                                     <i class="fas fa-paper-plane me-1"></i> تقديم عرض
