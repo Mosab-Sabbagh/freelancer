@@ -12,9 +12,11 @@ use App\Http\Controllers\JobPoster\DadshbordController;
 use App\Http\Controllers\JobPoster\JobPosterController;
 use App\Http\Controllers\JobPoster\ProjectController;
 use App\Http\Controllers\JobSeeker\DashbordSeekerController;
+use App\Http\Controllers\JobSeeker\JobSeekerProposalController;
 use App\Http\Controllers\JobSeeker\ProfileController;
 use App\Http\Controllers\JobSeeker\ProjectBrowseController;
 use App\Http\Controllers\JobSeeker\WorkSamplesController;
+use App\Http\Controllers\ProjectApplication\ProjectApplicationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -159,5 +161,13 @@ Route::get('jobseeker/projects', [ProjectBrowseController::class, 'index'])->mid
 Route::get('/project/details/{id}', [ProjectBrowseController::class, 'details'])->middleware(['auth', 'job_seeker'])->name('project.details');
 
 
-// Route::get('/jobposter/company/edit', [JobPosterController::class, 'edit'])->name('jobposter.edit');
-Route::post('/jobposter/update/{id}', [CompanyController::class, 'update'])->name('company.update');
+Route::post('/jobposter/update/{id}', [CompanyController::class, 'update'])->middleware(['auth', 'job_poster'])->name('company.update');
+
+// projectApplication 
+Route::post('/projectApplication/{project_id}', [ProjectApplicationController::class, 'store'])->middleware(['auth', 'job_seeker'])->name('project.application.store');
+
+Route::get('/my-proposals', [JobSeekerProposalController::class, 'index'])
+        ->middleware(['auth', 'job_seeker'])
+        ->name('jobseeker.proposals');
+
+

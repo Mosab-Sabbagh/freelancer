@@ -18,4 +18,9 @@ class Project extends Model
         return $this->belongsTo(JobPoster::class);
     }
 
+    public function applications()
+    {
+        return $this->hasMany(ProjectApplication::class);
+    }
+
 }

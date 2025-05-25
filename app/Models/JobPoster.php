@@ -23,4 +23,10 @@ class JobPoster extends Model
         return $this->hasMany(Project::class);
     }
 
+    public function applications()
+    {
+        return $this->hasMany(ProjectApplication::class);
+    }
+
+
 }

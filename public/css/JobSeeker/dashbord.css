@@ -569,8 +569,61 @@ strong {
             border-bottom: none;
         }
 } 
-/* footer{
-position: fixed;
-bottom: 0;
-width: 100%;
-} */
+
+/* Loader Container */
+    .loader-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.7);
+        z-index: 1000;
+    }
+
+    /* Loader Animation */
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        height: 50px;
+    }
+
+    .dot {
+        width: 14px;
+        height: 14px;
+        background-color: #3498db; /* اللون الأزرق الأساسي */
+        border-radius: 50%;
+        animation: bounce 0s infinite ease-in-out;
+    }
+
+    .dot:nth-child(1) {
+        animation-delay: 0s;
+    }
+
+    .dot:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .dot:nth-child(3) {
+        animation-delay: 0.2s;
+    }
+
+    @keyframes bounce {
+        0%, 100% { 
+            transform: translateY(0);
+            background-color: #3498db;
+        }
+        50% { 
+            transform: translateY(-12px);
+            background-color: #1a73e8; 
+        }
+    }
+
+    .position-relative {
+        position: relative !important;
+    }

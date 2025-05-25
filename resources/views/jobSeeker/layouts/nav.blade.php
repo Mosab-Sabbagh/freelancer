@@ -17,13 +17,13 @@
                     <a class="nav-link" href="{{route('jobseeker.projects.index')}}"><i class="fas fa-file-alt"></i> تصفح المشاريع</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="my-proposals.html"><i class="fas fa-tags"></i> عروضي</a>
+                    <a class="nav-link" href="{{route('jobseeker.proposals')}}"><i class="fas fa-tags"></i> عروضي</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="my-projects.html"><i class="fas fa-briefcase"></i> أعمالي</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('worksample.index')}}"><i class="fas fa-images"></i> معرضي</a>
+                    <a class="nav-link" href="{{route('worksample.index')}}"><i class="fas fa-briefcase"></i> أعمالي</a>
                 </li>
             </ul>
 

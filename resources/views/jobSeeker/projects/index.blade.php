@@ -28,8 +28,16 @@
 
         <div class="col-lg-9" id="projectsContainer">
             @include('jobSeeker.projects._projects_list', ['projects' => $projects])
+            
+            <!-- Loading Indicator -->
+            <div class="loader-container d-none" id="loaderContainer">
+                <div class="loader">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
         </div>
-        
     </div>
 </div>
 
@@ -72,5 +80,44 @@ $(document).ready(function() {
         });
     }
 });
+</script>
+
+{{-- lodder --}}
+<script>
+    $(document).ready(function() {
+        $('.service-filter').on('change', filterProjectsWithLoader);
+
+        function filterProjectsWithLoader() {
+            const loaderContainer = $('#loaderContainer');
+            const projectsContainer = $('#projectsContainer');
+
+            loaderContainer.removeClass('d-none');
+            projectsContainer.css('opacity', '0.8');
+
+            const selectedServices = $('.service-filter:checked').map(function() {
+                return $(this).val();
+            }).get();
+
+            const searchQuery = $('#searchInput').val();
+
+            $.ajax({
+                url: "{{ route('jobseeker.projects.index') }}",
+                type: "GET",
+                data: { service_id: selectedServices, search: searchQuery },
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                success: function(response) {
+                    projectsContainer.html(response);
+                },
+                error: function(xhr) {
+                    console.error('Error:', xhr.responseText);
+                    toastr && toastr.error('حدث خطأ أثناء جلب البيانات');
+                },
+                complete: function() {
+                    loaderContainer.addClass('d-none');
+                    projectsContainer.css('opacity', '1');
+                }
+            });
+        }
+    });
 </script>
 @endsection
