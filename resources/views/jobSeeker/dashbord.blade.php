@@ -1,7 +1,4 @@
 @extends('jobSeeker.layouts.app')
-@section('style')
-
-@endsection
 @section('title')
     لوحة تحكم -{{$user->name}}
 @endsection
@@ -23,9 +20,9 @@
                         <div class="card-body text-center">
                             @if($jobSeeker->profile_picture)
                                 <img src="{{ asset('storage/' . $jobSeeker->profile_picture) }}" 
-                                     class="rounded-circle mb-3"
-                                     style="width: 200px; height: 200px; object-fit: cover;"
-                                     alt="صورة المستخدم">
+                                    class="rounded-circle mb-3"
+                                    style="width: 200px; height: 200px; object-fit: cover;"
+                                    alt="صورة المستخدم">
                             @else
                                 <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center bg-light"
                                     style="width: 200px; height: 200px;">
@@ -47,7 +44,7 @@
                         <p class="card-text text-muted mb-4">
                             "احرص على أن يكون معرض أعمالك (Portfolio) محدثاً ويعكس أفضل مشاريعك. إنه مفتاح إبهار العملاء!"
                         </p>
-                        <a href="{{route('worksample.index')}}" class="btn btn-sm btn-outline-primary">
+                        <a href="{{route('worksample.index', $user->id)}}" class="btn btn-sm btn-outline-primary">
                             تحديث معرض الأعمال <i class="fas fa-arrow-alt-circle-right ms-1"></i>
                         </a>
                     </div>

@@ -1,4 +1,15 @@
-@extends('jobSeeker.layouts.app')
+@php
+    $currentLayout = 'jobSeeker.layouts.app'; 
+    $navPartial = 'jobSeeker.layouts.nav';   
+
+    if (Auth::check()) {
+        if (Auth::user()->jobPoster) {
+            $currentLayout = 'jobPoster.layouts.app';
+        }
+    }
+@endphp
+
+@extends($currentLayout)
 @section('title')
 معرض الأعمال
 @endsection

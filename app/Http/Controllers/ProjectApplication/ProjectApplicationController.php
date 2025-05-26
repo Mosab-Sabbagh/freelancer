@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\ProjectApplication;
 
 use App\Http\Controllers\Controller;
+use App\Models\JobPoster;
+use App\Models\Project;
+use App\Models\ProjectApplication;
 use App\Services\Project\ProjectApplicationService;
 use Exception;
 use Illuminate\Http\Request;
@@ -43,4 +46,31 @@ class ProjectApplicationController extends Controller
             return redirect()->back()->with('error', 'هناك خطأ ما حاول مرة أخرى');
         }
     }
+    
+    public function showForProject($projectId, ProjectApplicationService $service)
+    {
+        try {
+            $applications = $service->getApplicationsForProject($projectId);
+            return view('jobposter.project_applications.index', compact('applications'));
+        } catch (Exception $e) {
+            Log::info($e);
+            return redirect()->back()->with('error', 'حدث خطأ أثناء جلب الطلبات');
+        }
+    }
+
+    public function select(ProjectApplicationService $projectApplicationService,$id)
+    {
+        try {
+            $projectApplicationService->selectApplication($id, Auth::user()->jobPoster->id);
+
+            return redirect()->back()->with('success', 'تم اختيار المستقل لتنفيذ المشروع بنجاح.');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'الطلب أو المشروع المطلوب غير موجود.');
+        } catch (\Illuminate\Auth\Access\AuthorizationException $e) {
+            abort(403, $e->getMessage());
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'حدث خطأ أثناء اختيار المستقل: ' . $e->getMessage());
+        }
+    }
+
 }

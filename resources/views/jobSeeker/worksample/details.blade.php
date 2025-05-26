@@ -1,4 +1,15 @@
-@extends('jobSeeker.layouts.app')
+@php
+    $currentLayout = 'jobSeeker.layouts.app'; 
+    $navPartial = 'jobSeeker.layouts.nav';   
+
+    if (Auth::check()) {
+        if (Auth::user()->jobPoster) {
+            $currentLayout = 'jobPoster.layouts.app';
+        }
+    }
+@endphp
+
+@extends($currentLayout)
 @section('title')
 تفاصيل المشروع 
 @endsection 
@@ -13,18 +24,20 @@
                 <span class="me-3"><i class="fas fa-calendar"></i>{{$work->project_date}}</span>
                 <span class="me-3"><i class="fas fa-tag"></i> الفئة: {{$work->category}} </span>
             </div>
-            <div class="mt-2">
-                <a href="{{route('worksample.edit',$work->id)}}" class="btn btn-sm btn-warning">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <form action="{{route('worksample.destroy',$work->id)}}" method="post" class="delete-form" style="display: inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger delete-user">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </form>
-            </div>
+            @if (Auth::user()->jobSeeker)
+                <div class="mt-2">
+                    <a href="{{route('worksample.edit',$work->id)}}" class="btn btn-sm btn-warning">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form action="{{route('worksample.destroy',$work->id)}}" method="post" class="delete-form" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger delete-user">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            @endif
         </div>
 
 

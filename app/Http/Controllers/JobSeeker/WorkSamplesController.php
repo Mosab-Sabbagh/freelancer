@@ -41,10 +41,10 @@ class WorkSamplesController extends Controller
         }
     }
 
-    public function index(WorkSamplesService $service)
+    public function index(WorkSamplesService $service , $id)
     {
         try {
-            $WorkSamples = $service->getAll();
+            $WorkSamples = $service->getAll($id);
             return view('jobSeeker.worksample.index', compact("WorkSamples"));
         } catch (Exception $e) {
             return back()->with('error', 'حدث خطأ أثناء التحميل: ' );
