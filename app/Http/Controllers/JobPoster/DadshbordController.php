@@ -16,7 +16,7 @@ class DadshbordController extends Controller
         $jobPoster = $user->jobPoster;
 
         $data = [
-            'totalProjects' => Project::where('job_poster_id', $jobPoster->id)->where('status', 'open')->count(),
+            'totalProjects' => Project::where('job_poster_id', $jobPoster->id)->count(),
             'totalProjectsClosed' => Project::where('job_poster_id', $jobPoster->id)->where('status', 'closed')->count(),
             'latestProjects' => Project::where('job_poster_id', $jobPoster->id)->with('service')->latest()->take(5)->get(),
             'company' => $jobPoster->company, // إضافة بيانات الشركة

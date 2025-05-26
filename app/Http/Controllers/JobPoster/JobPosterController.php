@@ -55,11 +55,9 @@ class JobPosterController extends Controller
             return view('jobPoster.profile.profile',compact("jobPoster"));
         }elseif($jobPoster->poster_type === 'company'){
             $companyPoster = $jobPoster->company;
-            // dd($companyPoster);
             return view('jobPoster.company.profile',compact("companyPoster"));
         }
     }
-
 
 
 }

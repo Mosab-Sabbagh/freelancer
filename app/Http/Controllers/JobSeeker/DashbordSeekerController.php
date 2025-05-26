@@ -24,7 +24,6 @@ class DashbordSeekerController extends Controller
         $data = [
             'latestProjects' => $latestProjectsInSameField,
             'user' => $user,
-            // يمكنك إضافة jobSeeker أيضاً إذا احتجته في الواجهة الأمامية
             'jobSeeker' => $jobSeeker,
         ];
 

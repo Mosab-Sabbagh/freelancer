@@ -49,9 +49,9 @@ class WorkSamplesService{
         }
     }
 
-    public function getAll()
+    public function getAll($id)
     {
-        return WorkSample::with('mainImage')->get();
+        return WorkSample::with('mainImage')->where('user_id',$id)->get();
     }
 
     public function getById($id)

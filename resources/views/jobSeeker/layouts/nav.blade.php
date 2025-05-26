@@ -22,9 +22,11 @@
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="my-projects.html"><i class="fas fa-briefcase"></i> أعمالي</a>
                 </li> --}}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('worksample.index')}}"><i class="fas fa-briefcase"></i> أعمالي</a>
-                </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('worksample.index',Auth::user()->id)}}"><i class="fas fa-briefcase"></i> أعمالي</a>
+                    </li>
+                
             </ul>
 
             <ul class="navbar-nav">

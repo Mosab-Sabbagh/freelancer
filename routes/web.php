@@ -45,17 +45,12 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/admin/dashbord', [DashboardController::class, 'index'])->middleware(['auth','admin'])->name('admin.dashboard');
-Route::get('/jobSeeker/dash', [DashbordSeekerController::class, 'index'])->middleware(['auth','job_seeker'])->name('jobSeeker.dash');;
+Route::get('/jobSeeker/dash', [DashbordSeekerController::class, 'index'])->middleware(['auth','job_seeker'])->name('jobSeeker.dash');
 
-// start test middleware
-// Route::get('/admin/dash', function () {
-//     return view('admin.dashboard');
-// })->middleware(['auth','admin'])->name('admin.dashboard');
+Route::get('/test-route', function () {
+    return view('test');
+});
 
-
-// Route::get('/jobSeeker/dash', function () {
-//     return view('jobSeeker.dashbord');
-// })->middleware(['auth','job_seeker'])->name('jobSeeker.dash');
 
 Route::get('/supporter/dash', function () {
     return view('supporter.dash');
@@ -66,7 +61,7 @@ Route::get('/supporter/dash', function () {
 // middleware job_seeker or admin 
 Route::get('jobseeker/info/{id}', [ProfileController::class, 'info'])->name('profile.info');
 Route::get('update-password', [ProfileController::class, 'updatePassword'])->middleware(['auth','job_seeker'])->name('profile.update-password');
-Route::get('profile/{id}', [ProfileController::class, 'profile'])->middleware(['auth','job_seeker'])->name('profile.show');
+Route::get('profile/{id}', [ProfileController::class, 'profile'])->middleware(['auth'])->name('profile.show');
 
 // job_seeker profile
 Route::middleware(['auth', 'job_seeker'])->prefix('jobseeker')->name('jobSeeker.')->group(function () {
@@ -135,8 +130,8 @@ Route::middleware(['auth','admin'])->group(function () {
 
 Route::get('worksample', [WorkSamplesController::class, 'add'])->middleware(['auth','job_seeker'])->name('worksample.add');
 Route::post('worksample', [WorkSamplesController::class, 'store'])->middleware(['auth','job_seeker'])->name('worksample.store');
-Route::get('worksamples', [WorkSamplesController::class, 'index'])->middleware(['auth','job_seeker'])->name('worksample.index');
-Route::get('worksample/{id}', [WorkSamplesController::class, 'show'])->middleware(['auth','job_seeker'])->name('worksample.show');
+Route::get('worksamples/{id}', [WorkSamplesController::class, 'index'])->middleware(['auth'])->name('worksample.index');
+Route::get('worksample/{id}', [WorkSamplesController::class, 'show'])->middleware(['auth'])->name('worksample.show');
 Route::Delete('worksample/{id}', [WorkSamplesController::class, 'destroy'])->middleware(['auth','job_seeker'])->name('worksample.destroy');
 Route::get('worksample/edit/{id}', [WorkSamplesController::class, 'edit'])->middleware(['auth','job_seeker'])->name('worksample.edit');
 Route::PUT('worksample/{id}', [WorkSamplesController::class, 'update'])->middleware(['auth','job_seeker'])->name('worksample.update');
@@ -169,5 +164,13 @@ Route::post('/projectApplication/{project_id}', [ProjectApplicationController::c
 Route::get('/my-proposals', [JobSeekerProposalController::class, 'index'])
         ->middleware(['auth', 'job_seeker'])
         ->name('jobseeker.proposals');
+
+Route::get('/projects/applications/{project}', [ProjectApplicationController::class, 'showForProject'])
+    ->middleware(['auth', 'job_poster'])
+    ->name('poster.project.applications');
+
+Route::post('/project-application/{id}/select', [ProjectApplicationController::class, 'select'])
+    ->middleware(['auth', 'job_poster'])
+    ->name('poster.project.select');
 
 

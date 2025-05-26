@@ -1,7 +1,20 @@
-@extends('jobSeeker.layouts.app')
+@php
+    $currentLayout = 'jobSeeker.layouts.app'; 
+    $navPartial = 'jobSeeker.layouts.nav';   
+
+    if (Auth::check()) {
+        if (Auth::user()->jobPoster) {
+            $currentLayout = 'jobPoster.layouts.app';
+        }
+    }
+@endphp
+
+@extends($currentLayout)
+
 @section('title')
- الملف الشخصية - {{ Auth::user()->name }} 
+    الملف الشخصي - {{ $user->name }}
 @endsection
+
 
 @section('content')
 <div class="container py-5">
@@ -10,7 +23,12 @@
             <i class="fas fa-arrow-right ml-1"></i>
             رجوع
         </a>
-        <a href="{{route('jobSeeker.profile.edit',Auth::user()->id)}}" class="btn btn-primary btn-sm">تعديل الملف الشخصي</a>
+        @if (Auth::user()->jobSeeker)
+            <a href="{{route('jobSeeker.profile.edit',$user->id)}}" class="btn btn-primary btn-sm">تعديل الملف الشخصي</a>
+        @endif
+        @if (Auth::user()->jobPoster)
+            <a href="{{route('worksample.index',$user->id)}}" class="btn btn-primary btn-sm">تصفح معرض الأعمال</a>
+        @endif
     </div>
     <div class="row">
         <div class="col-md-4">
@@ -18,12 +36,12 @@
                 <div class="card-body text-center">
                     @if($seeker && $seeker->profile_picture)
                         <img src="{{ asset('storage/' . $seeker->profile_picture) }}" 
-                             class="rounded-circle mb-3"
-                             style="width: 200px; height: 200px; object-fit: cover;"
-                             alt="صورة المستخدم">
+                            class="rounded-circle mb-3"
+                            style="width: 200px; height: 200px; object-fit: cover;"
+                            alt="صورة المستخدم">
                     @else
                         <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center bg-light"
-                             style="width: 200px; height: 200px;">
+                            style="width: 200px; height: 200px;">
                             <i class="fas fa-user fa-4x text-muted"></i>
                         </div>
                     @endif
