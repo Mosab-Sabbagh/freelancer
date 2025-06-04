@@ -2,10 +2,15 @@
 
 namespace App\Providers;
 
+use App\Models\Chat\Chat;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
-use App\Models\Project;         
-use App\Policies\ProjectPolicy; 
+use Illuminate\Support\Facades\Broadcast;
+use App\Models\Project;
+use App\Policies\ProjectPolicy;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Gate;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -31,6 +36,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
-        // $this->registerPolicies();
+        
+        // تعريف مسارات البث مع middleware المصادقة
+        Broadcast::routes(['middleware' => ['web', 'auth']]);
+        
+        // تسجيل سياسات التطبيق
+        $this->registerPolicies();
+    }
+
+    protected function registerPolicies()
+    {
+        foreach ($this->policies as $model => $policy) {
+            Gate::policy($model, $policy);
+        }
     }
 }

@@ -7,6 +7,7 @@ use App\Services\JobSeeker\WorkSamplesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class WorkSamplesController extends Controller
 {
@@ -65,7 +66,7 @@ class WorkSamplesController extends Controller
     {
         try {
             $service->delete($id);
-            return redirect()->route('worksample.index')->with('success','تم حذف المشروع بنجاح');
+            return redirect()->route('worksample.index',Auth::id())->with('success','تم حذف المشروع بنجاح');
         } catch (Exception $e) {
             return back()->with('error', 'حدث خطأ أثناء الحذف: ' );
         }
@@ -75,6 +76,8 @@ class WorkSamplesController extends Controller
     {
         try {
             $work = $service->getById($id);
+            if($work->user_id !== Auth::id())
+            return back()->with('error', 'حدث خطأ أثناء التحميل' );
             return view('jobSeeker.worksample.edit', compact('work'));
         } catch (Exception $e) {
             return back()->with('error', 'حدث خطأ أثناء التحميل: ' );

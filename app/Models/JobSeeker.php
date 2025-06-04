@@ -32,4 +32,9 @@ class JobSeeker extends Model
         return $this->hasMany(ProjectApplication::class);
     }
 
+    public function messages()
+    {
+        return $this->morphMany(Message::class, 'sender');
+    }
+
 }

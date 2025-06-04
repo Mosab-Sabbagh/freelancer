@@ -24,7 +24,7 @@
                 <span class="me-3"><i class="fas fa-calendar"></i>{{$work->project_date}}</span>
                 <span class="me-3"><i class="fas fa-tag"></i> الفئة: {{$work->category}} </span>
             </div>
-            @if (Auth::user()->jobSeeker)
+            @if (Auth::user()->jobSeeker && Auth()->id() == $work->user_id)
                 <div class="mt-2">
                     <a href="{{route('worksample.edit',$work->id)}}" class="btn btn-sm btn-warning">
                         <i class="fas fa-edit"></i>
@@ -41,14 +41,11 @@
         </div>
 
 
-
-
-
         <div class="row">
             <div class="col-lg-8">
                 <div class="project-description">
                     <h2 class="mb-4">وصف المشروع</h2>
-                    {{$work->description }}
+                    <p  style="white-space: pre-line;">{{$work->description }}</p>
                 </div>
 
                         <div class="project-gallery">

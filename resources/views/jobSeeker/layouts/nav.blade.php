@@ -23,9 +23,13 @@
                     <a class="nav-link" href="my-projects.html"><i class="fas fa-briefcase"></i> أعمالي</a>
                 </li> --}}
                 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('worksample.index',Auth::user()->id)}}"><i class="fas fa-briefcase"></i> أعمالي</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('worksample.index',Auth::user()->id)}}"><i class="fas fa-briefcase"></i> أعمالي</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('workspace.showForSeeker')}}"><i class="fas fa-layer-group"></i> مساحات العمل</a>
+                </li>
                 
             </ul>
 
@@ -53,6 +57,8 @@
                         <li><a class="dropdown-item" href="#">رسالة 1</a></li>
                         <li><a class="dropdown-item" href="#">رسالة 2</a></li>
                         <li><a class="dropdown-item" href="#">رسالة 3</a></li>
+                        <li><a class="dropdown-item mt-2" href="{{route('chat.index')}}"><i class="fas fa-envelope"></i>جميع المراسلات  </a></li>
+
                     </ul>
                 </li>
                 
