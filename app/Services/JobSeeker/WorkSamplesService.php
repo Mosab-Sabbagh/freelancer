@@ -56,12 +56,14 @@ class WorkSamplesService{
 
     public function getById($id)
     {
-        return WorkSample::with('files')->where('id',$id)->first();
+        return WorkSample::with('files')->findOrFail($id);
     }
 
     public function delete($id)
     {
         $work  =  WorkSample::find($id);
+        if($work->user_id !== Auth::id())
+            return;
         foreach ($work->files as $file) {
             if (Storage::disk('public')->exists($file->file_path)) {
                 Storage::disk('public')->delete($file->file_path);
@@ -73,7 +75,8 @@ class WorkSamplesService{
     public function update(Request $request, $id)
     {
         $workSample = WorkSample::with('files')->findOrFail($id);
-
+        if($workSample->user_id !== Auth::id())
+            return;
         // تحديث البيانات الأساسية
         $workSample->update([
             'title' => $request->title,

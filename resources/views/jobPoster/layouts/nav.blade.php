@@ -48,6 +48,7 @@
                         <li><a class="dropdown-item" href="#">رسالة 1</a></li>
                         <li><a class="dropdown-item" href="#">رسالة 2</a></li>
                         <li><a class="dropdown-item" href="#">رسالة 3</a></li>
+                        <li><a class="dropdown-item mt-2" href="{{route('chat.index')}}"><i class="fas fa-envelope"></i>جميع المراسلات  </a></li>
                     </ul>
                 </li>
                 

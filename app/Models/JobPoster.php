@@ -28,5 +28,12 @@ class JobPoster extends Model
         return $this->hasMany(ProjectApplication::class);
     }
 
+    public function messages()
+    {
+        // sender is a polymorphic relationship, so we use morphMany to define it
+        // This allows JobPoster to send messages in chats
+        return $this->morphMany(Message::class, 'sender');
+    }
+
 
 }

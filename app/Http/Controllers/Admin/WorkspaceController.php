@@ -80,6 +80,11 @@ class WorkspaceController extends Controller
             return redirect()->back()->with('error', 'حدث خطأ أثناء حذف المساحة');
         }
     }
-    
 
+    public function showForSeeker(WorkspaceService $service)
+    {
+        $workspaces = $service->getAll();
+        return view('jobSeeker.workspace.index',compact('workspaces'));
+    }
+    
 }

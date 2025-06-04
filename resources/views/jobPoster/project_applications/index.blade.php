@@ -77,7 +77,10 @@
                                 class="btn btn-outline-primary btn-md d-flex align-items-center justify-content-center">
                                 <i class="fas fa-address-card me-2"></i> عرض الملف الشخصي
                             </a>
-
+                            <a href="{{ route('chat.start', ['projectId' => $application->project->id, 'seekerId' => $application->jobSeeker->id]) }}"
+                                class="btn btn-outline-info btn-md d-flex align-items-center justify-content-center">
+                                <i class="fas fa-comments me-2"></i> مراسلة {{ $application->jobSeeker->user->name }}
+                            </a>
                             @if(!$application->is_selected)
                                 <form action="{{ route('poster.project.select', $application->id) }}" method="POST" class="d-inline-block">
                                     @csrf

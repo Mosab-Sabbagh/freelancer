@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\ManagementUserController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\WorkspaceController;
+use App\Http\Controllers\Chat\_ChatController;
+use App\Http\Controllers\Chat\ChatController;
+use App\Http\Controllers\Chat\ConversationController;
 use App\Http\Controllers\JobPoster\Campany\CompanyController;
 // use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JobPoster\DadshbordController;
@@ -18,6 +21,8 @@ use App\Http\Controllers\JobSeeker\ProjectBrowseController;
 use App\Http\Controllers\JobSeeker\WorkSamplesController;
 use App\Http\Controllers\ProjectApplication\ProjectApplicationController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Broadcasting\Broadcasters\PusherBroadcaster;
 
 
 
@@ -99,6 +104,8 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::delete('/delete/{id}', [WorkspaceController::class, 'destroy'])->name('destroy');
     });
 });
+Route::get('seekers-workspaces', [WorkspaceController::class, 'showForSeeker'])->middleware(['job_seeker','auth'])->name('workspace.showForSeeker');
+
 
 
 Route::middleware(['auth','admin'])->group(function () {
@@ -174,3 +181,13 @@ Route::post('/project-application/{id}/select', [ProjectApplicationController::c
     ->name('poster.project.select');
 
 
+Route::get('/start-chat/{projectId}/{seekerId}', [ChatController::class, 'createOrGetChat'])->name('chat.start');
+Route::get('/chat/{id}', [ChatController::class, 'show'])->name('chat.show');
+Route::post('/chat/{id}/send', [ChatController::class, 'send'])->name('chat.send');
+
+Route::get('/chat', [ChatController::class, 'index'])->name('chat.index')->middleware(['auth']);
+
+// مسار المصادقة للبث
+Route::post('/broadcasting/auth', function (\Illuminate\Http\Request $request) {
+    return Broadcast::auth($request);
+})->middleware(['web', 'auth']);

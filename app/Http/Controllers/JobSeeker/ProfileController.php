@@ -23,6 +23,9 @@ class ProfileController extends Controller
     
     public function edit(SkillService $skillService , ServiceService $service , JobSeekerService $jobSeekerService ,ManagementUserServices $management_user , $id)
     {
+        if (Auth::user()->id != $id) {
+            return redirect()->route('jobSeeker.dash')->with('error', 'ليس لديك صلاحية الوصول لهذه الصفحة.');
+        }
         $skills = $skillService->getAll();
         $services = $service->getAll();
         $user = $management_user->getById($id);

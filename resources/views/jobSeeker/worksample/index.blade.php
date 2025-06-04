@@ -10,14 +10,11 @@
 @endphp
 
 @extends($currentLayout)
-@section('title')
-معرض الأعمال
-@endsection
-
+@section('title','معرض الأعمال')
 @section('content')
 <div class="container main-container">
     <div class="row">
-        @foreach ($WorkSamples as $work)
+        @forelse ($WorkSamples as $work)
             <div class="col-md-3 mb-3">
                 <a href="{{route('worksample.show',$work->id)}}" class="text-decoration-none">
                     <div class="portfolio-card h-100">
@@ -29,10 +26,16 @@
                         </div>
                     </a>
                         <h4 class="portfolio-title text-center mt-3">{{$work->title}}</h4>
-
-                    </div>
             </div>
-        @endforeach
+        </div>
+        @empty
+            <div class="col-12">
+                <div class="alert alert-warning text-center" role="alert">
+                    <strong class="font-weight-bold">عذراً!</strong>
+                    لا توجد مشاريع مضافة لحد الان .
+                </div>
+            </div>
+        @endforelse
     </div>
 </div>
 @endsection

@@ -101,7 +101,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="2" class="text-center text-muted">لا يوجد مهارات</td>
+                                            <td colspan="2" class="text-center text-muted">لا يوجد مساحات</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
