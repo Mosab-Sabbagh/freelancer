@@ -1,3 +1,5 @@
+{{-- < ?php dd(Auth::user()->jobSeeker->unreadNotifications)  ?> --}}
+
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="{{route('jobSeeker.dash')}}">
@@ -19,10 +21,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('jobseeker.proposals')}}"><i class="fas fa-tags"></i> عروضي</a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="my-projects.html"><i class="fas fa-briefcase"></i> أعمالي</a>
-                </li> --}}
-                
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('worksample.index',Auth::user()->id)}}"><i class="fas fa-briefcase"></i> أعمالي</a>
                 </li>
@@ -32,21 +30,44 @@
                 </li>
                 
             </ul>
-
+            @php
+                $unreadCount = Auth::user()->jobSeeker->unreadNotifications->count();
+            @endphp
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    {{-- this class use in <a> dropdown-toggle  for show (>)  --}}
                     <a class="nav-link " href="#" id="navbarDropdownMenuLink" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-bell"></i>
-                        <span class="badge bg-danger">5</span>
+                        @if($unreadCount > 0)
+                            <span class="badge bg-danger">
+                                <span >{{ $unreadCount }}</span>
+                            </span>
+                        @endif
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">اشعار 1</a></li>
-                        <li><a class="dropdown-item" href="#">اشعار 2</a></li>
-                        <li><a class="dropdown-item" href="#">اشعار 3</a></li>
+                        @forelse (Auth::user()->jobSeeker->unreadNotifications as $notification)
+                            <li>
+                                <a class="dropdown-item" href="{{ route('notifications.read', $notification->id) }}">
+                                    <strong>{{ $notification->data['title'] ?? 'بدون عنوان' }}</strong><br>
+                                    <small>{{ $notification->data['body'] ?? '' }}</small>
+                                </a>
+                            </li>
+                        @empty
+                            @forelse (Auth::user()->jobSeeker->readNotifications as $notification)
+                                <li>
+                                    <a class="dropdown-item" href="{{$notification->data['url'] ?? '/'}}">
+                                        <strong>{{ $notification->data['title'] ?? 'بدون عنوان' }}</strong><br>
+                                        <small>{{ $notification->data['body'] ?? '' }}</small>
+                                    </a>
+                                </li>    
+
+                            @empty
+                                <li><a class="dropdown-item" href="javascript:;">لا توجد إشعارات جديدة</a></li>
+                            @endforelse
+                        @endforelse
                     </ul>
                 </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link " href="#" id="navbarDropdownMenuLink2" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">

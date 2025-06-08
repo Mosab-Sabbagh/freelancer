@@ -20,51 +20,56 @@
                         </p>
                     @endif
                 </div>
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="apply-form-card p-4 border rounded-3 shadow-sm bg-white">
-                            <h4 class="fw-bold mb-4">تقديم عرض للمشروع</h4>
-                            <form action="{{route('project.application.store',$project->id)}}" method="post">
-                                @csrf
-                                <input type="hidden" name="job_poster_id" value="{{$project->jobPoster->id}}">
-                                <div class="d-flex justify-content-between">
-                                <div class="mb-3">
-                                    <label for="deliveryTime" class="form-label">مدة التسليم <span style="color: red">*</span></label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" name="execution_days" id="deliveryTime" placeholder="0" required>
-                                        <span class="input-group-text">أيام</span>
+                @if ($isApplied)
+                    <div class="alert alert-info" role="alert">
+                        <i class="fas fa-info-circle me-2"></i> لقد قمت بتقديم عرض لهذا المشروع بالفعل.
+                    </div>
+                @else    
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="apply-form-card p-4 border rounded-3 shadow-sm bg-white">
+                                <h4 class="fw-bold mb-4">تقديم عرض للمشروع</h4>
+                                <form action="{{route('project.application.store',$project->id)}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="job_poster_id" value="{{$project->jobPoster->id}}">
+                                    <div class="d-flex justify-content-between">
+                                    <div class="mb-3">
+                                        <label for="deliveryTime" class="form-label">مدة التسليم <span style="color: red">*</span></label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="execution_days" id="deliveryTime" placeholder="0" required>
+                                            <span class="input-group-text">أيام</span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="mb-3">
-                                    <label for="deliveryPrice" class="form-label"> قيمة العرض <span style="color: red">*</span></label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" name="proposed_price" id="deliveryPrice" placeholder="0" required>
-                                        <span class="input-group-text">$</span>
+                                    <div class="mb-3">
+                                        <label for="deliveryPrice" class="form-label"> قيمة العرض <span style="color: red">*</span></label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="proposed_price" id="deliveryPrice" placeholder="0" required>
+                                            <span class="input-group-text">$</span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="mb-3">
-                                    <label for="offerAmount" class="form-label">مستحقاتك </label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" id="offerAmount" placeholder="0.00" value="" readonly>
-                                        <span class="input-group-text">$</span>
+                                    <div class="mb-3">
+                                        <label for="offerAmount" class="form-label">مستحقاتك </label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="offerAmount" placeholder="0.00" value="" readonly>
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                        <small class="text-muted" >بعد خصم <span style="color: #3498db">عمولة موقع وظيفة</span></small>
                                     </div>
-                                    <small class="text-muted" >بعد خصم <span style="color: #3498db">عمولة موقع وظيفة</span></small>
                                 </div>
+                                    <div class="mb-3">
+                                        <label for="offerDetails" class="form-label">تفاصيل عرضك <span style="color: red">*</span></label>
+                                        <textarea class="form-control" name="notes" id="offerDetails" rows="5" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-apply">
+                                        <i class="fas fa-paper-plane me-1"></i> تقديم عرض
+                                    </button>
+                                </form>
                             </div>
-                                <div class="mb-3">
-                                    <label for="offerDetails" class="form-label">تفاصيل عرضك <span style="color: red">*</span></label>
-                                    <textarea class="form-control" name="notes" id="offerDetails" rows="5" required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-apply">
-                                    <i class="fas fa-paper-plane me-1"></i> تقديم عرض
-                                </button>
-                            </form>
                         </div>
                     </div>
-                </div>
-
+                @endif
             </div>
     
             <div class="col-lg-4">
@@ -107,9 +112,7 @@
                         <span class="small">{{ $project->jobPoster->user->created_at->format('d M Y') }}</span>
                     </div>
             </div>
+            </div>
         </div>
     </div>
-</div>
-
-    
 @endsection
