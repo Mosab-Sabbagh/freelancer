@@ -1,6 +1,6 @@
 @extends('jobSeeker.layouts.app')
 @section('title')
-    لوحة تحكم -{{$user->name}}
+    لوحة تحكم -{{$jobSeeker->user->name}}
 @endsection
 
 @section('content')
@@ -29,9 +29,9 @@
                                     <i class="fas fa-user fa-4x text-muted"></i>
                                 </div>
                             @endif
-                            <h4 class="mb-0">{{$user->name}} {{$user->last_name}}</h4>
-                            <p class="text-muted">{{$user->email}}</p>
-                            <a href="{{route('jobSeeker.profile.edit',$user->id)}}" class="btn btn-primary btn-sm">تعديل الملف الشخصي</a>
+                            <h4 class="mb-0">{{$jobSeeker->user->name}} {{$jobSeeker->user->last_name}}</h4>
+                            <p class="text-muted">{{$jobSeeker->user->email}}</p>
+                            <a href="{{route('jobSeeker.profile.edit',$jobSeeker->user->id)}}" class="btn btn-primary btn-sm">تعديل الملف الشخصي</a>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <p class="card-text text-muted mb-4">
                             "احرص على أن يكون معرض أعمالك (Portfolio) محدثاً ويعكس أفضل مشاريعك. إنه مفتاح إبهار العملاء!"
                         </p>
-                        <a href="{{route('worksample.index', $user->id)}}" class="btn btn-sm btn-outline-primary">
+                        <a href="{{route('worksample.index', $jobSeeker->user->id)}}" class="btn btn-sm btn-outline-primary">
                             تحديث معرض الأعمال <i class="fas fa-arrow-alt-circle-right ms-1"></i>
                         </a>
                     </div>

@@ -1,13 +1,19 @@
 <?php 
 namespace App\Services\Project;
 
+use App\Models\JobPoster;
 use App\Models\Project;
 use App\Models\ProjectApplication;
+use App\Notifications\NewApplicationNotification;
+use App\Notifications\SeekerAccepted;
 use Illuminate\Support\Facades\DB; 
 class ProjectApplicationService{
     public function storeApplication(array $data)
     {
-        return ProjectApplication::create($data);
+        $application = ProjectApplication::create($data);
+        $poster = JobPoster::find($application->project->jobPoster->id);
+        $poster->notify(new NewApplicationNotification($application));
+        return $application;
     }
 
     public function hasAlreadyApplied($projectId, $jobSeekerId): bool
@@ -76,6 +82,13 @@ class ProjectApplicationService{
                 'is_selected' => true,
                 'execution_status' => 'in_progress',
             ]);
+            
+            // notify the seeker that they have been selected
+            // جلب المستخدم المرتبط بالمستقل
+            $seeker = $application->jobSeeker;
+
+            // إرسال الإشعار
+            $seeker->notify(new SeekerAccepted($project));
 
             // تحديث حالة المشروع إلى "قيد الانتظار" (pending)
             $project->update([

@@ -19,6 +19,7 @@ use App\Http\Controllers\JobSeeker\JobSeekerProposalController;
 use App\Http\Controllers\JobSeeker\ProfileController;
 use App\Http\Controllers\JobSeeker\ProjectBrowseController;
 use App\Http\Controllers\JobSeeker\WorkSamplesController;
+use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\ProjectApplication\ProjectApplicationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Broadcast;
@@ -191,3 +192,9 @@ Route::get('/chat', [ChatController::class, 'index'])->name('chat.index')->middl
 Route::post('/broadcasting/auth', function (\Illuminate\Http\Request $request) {
     return Broadcast::auth($request);
 })->middleware(['web', 'auth']);
+
+
+
+Route::get('/notifications/mark-as-read/{id}', [NotificationController::class, 'markAsRead'])
+        ->name('notifications.read')
+        ->whereUuid('id');

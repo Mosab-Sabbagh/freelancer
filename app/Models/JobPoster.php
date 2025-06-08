@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class JobPoster extends Model
 {
+    use Notifiable;
+
     protected $fillable = ['user_id','poster_type','phone','bio','profile_image','company_id'];
 
     public function user()
@@ -34,6 +37,12 @@ class JobPoster extends Model
         // This allows JobPoster to send messages in chats
         return $this->morphMany(Message::class, 'sender');
     }
+
+    // public function notifications()
+    // {
+    //     return $this->morphMany(Notification::class, 'notifiable');
+    // }
+
 
 
 }

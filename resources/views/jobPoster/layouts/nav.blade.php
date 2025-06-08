@@ -25,17 +25,40 @@
             </ul>
 
             <ul class="navbar-nav">
+            @php
+                $unreadCount = Auth::user()->jobPoster->unreadNotifications->count();
+            @endphp
+            <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    {{-- this class use in <a> dropdown-toggle  for show (>)  --}}
                     <a class="nav-link " href="#" id="navbarDropdownMenuLink" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-bell"></i>
-                        <span class="badge bg-danger">5</span>
+                        @if($unreadCount > 0)
+                            <span class="badge bg-danger">
+                                <span >{{ $unreadCount }}</span>
+                            </span>
+                        @endif
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">اشعار 1</a></li>
-                        <li><a class="dropdown-item" href="#">اشعار 2</a></li>
-                        <li><a class="dropdown-item" href="#">اشعار 3</a></li>
+                        @forelse (Auth::user()->jobPoster->unreadNotifications as $notification)
+                            <li>
+                                <a class="dropdown-item" href="{{ route('notifications.read', $notification->id) }}">
+                                    <strong>{{ $notification->data['title'] ?? 'بدون عنوان' }}</strong><br>
+                                    <small>{{ $notification->data['body'] ?? '' }}</small>
+                                </a>
+                            </li>
+                        @empty
+                            @forelse (Auth::user()->jobPoster->readNotifications as $notification)
+                                <li>
+                                    <a class="dropdown-item" href="{{$notification->data['url'] ?? '/'}}">
+                                        <strong>{{ $notification->data['title'] ?? 'بدون عنوان' }}</strong><br>
+                                        <small>{{ $notification->data['body'] ?? '' }}</small>
+                                    </a>
+                                </li>    
+                            @empty
+                                <li><a class="dropdown-item" href="javascript:;">لا توجد إشعارات جديدة</a></li>
+                            @endforelse
+                        @endforelse
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

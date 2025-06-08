@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class ProjectApplication extends Model
 {
+    use Notifiable;
     protected $fillable = [
         'project_id',
         'job_seeker_id',

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Gate;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * سياسات التطبيق (Policies).
+     * (Policies).
      *
      * @var array
      */
@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         Broadcast::routes(['middleware' => ['web', 'auth']]);
         
         // تسجيل سياسات التطبيق
-        $this->registerPolicies();
+        $this->registerPolicies(); 
     }
 
     protected function registerPolicies()

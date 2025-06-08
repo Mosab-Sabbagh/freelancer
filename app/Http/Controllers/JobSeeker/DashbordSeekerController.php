@@ -11,8 +11,8 @@ class DashbordSeekerController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-        $jobSeeker = $user->jobSeeker; 
+        // $user = Auth::user();
+        $jobSeeker = Auth::user()->jobSeeker; 
 
         $jobSeekerServiceIds = $jobSeeker->services->pluck('id')->toArray();
 
@@ -23,10 +23,13 @@ class DashbordSeekerController extends Controller
             ->get();
         $data = [
             'latestProjects' => $latestProjectsInSameField,
-            'user' => $user,
+            // 'user' => $user,
             'jobSeeker' => $jobSeeker,
         ];
 
-        return view('jobSeeker.dashbord', $data);
+        $notifications = $jobSeeker->unreadNotifications;
+        // dd($notifications);
+
+        return view('jobSeeker.dashbord', $data , compact('notifications'));
     }
 }

@@ -64,4 +64,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(JobPoster::class,'user_id','id');
     }
+
+    // public function notifications()
+    // {
+    //     return $this->morphMany(Notification::class, 'notifiable');
+    // }
 }

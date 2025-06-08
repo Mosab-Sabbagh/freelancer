@@ -8,6 +8,8 @@ use App\Models\JobSeeker;
 use App\Models\Company;
 use App\Models\JobPoster;
 use App\Models\User;
+use App\Notifications\WelcomePoster;
+use App\Notifications\WelcomeSeeker;
 use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -60,18 +62,24 @@ class RegisteredUserController extends Controller
         ]);
 
 
-
+        $user_notification = null;
         switch ($request->user_type) {
             case UserRole::JOB_POSTER:
                 $jobPoster = JobPoster::create([
                     'user_id' => $user->id,
                     'poster_type' => $request->poster_type,
                 ]);
+                $user_notification = $jobPoster;
+                $user_notification->notify(new WelcomePoster($user_notification));
+
                 break;
             case UserRole::JOB_SEEKER:
                 $jobSeeker = JobSeeker::create([
                     'user_id' => $user->id,
                 ]);
+                $user_notification = $jobSeeker;
+                $user_notification->notify(new WelcomeSeeker($user_notification));
+
                 break;
         }
 
@@ -82,6 +90,8 @@ class RegisteredUserController extends Controller
         }
         
         event(new Registered($user));
+
+        // إرسال الإشعار
 
         Auth::login($user);
         

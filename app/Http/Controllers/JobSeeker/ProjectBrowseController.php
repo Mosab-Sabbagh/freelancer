@@ -4,9 +4,11 @@ namespace App\Http\Controllers\JobSeeker;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
+use App\Services\Project\ProjectApplicationService;
 use App\Services\Project\projectService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ProjectBrowseController extends Controller
@@ -23,11 +25,12 @@ class ProjectBrowseController extends Controller
         return view('jobSeeker.projects.index', compact('projects', 'services'));
     }
 
-    public function details(ProjectService $projectService,$id)
+    public function details(ProjectService $projectService,$id,ProjectApplicationService $projectApplicationService)
     {
         try{
+            $isApplied = $projectApplicationService->hasAlreadyApplied($id,Auth::user()->jobSeeker->id);
             $project = $projectService->detailsProject($id);
-            return view('jobSeeker.projects.details',compact('project'));
+            return view('jobSeeker.projects.details',compact('project','isApplied'));
         }catch(Exception $e)
         {
             Log::info($e);
