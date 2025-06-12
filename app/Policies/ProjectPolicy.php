@@ -68,5 +68,11 @@ class ProjectPolicy
     {
         return $user->jobPoster->id === $project->job_poster_id;
     }
-
+    public function deliver(User $user, Project $project)
+    {
+        return \App\Models\ProjectApplication::where('project_id', $project->id)
+            ->where('job_seeker_id', $user->jobSeeker->id)
+            ->where('is_selected', true)
+            ->exists();
+    }
 }

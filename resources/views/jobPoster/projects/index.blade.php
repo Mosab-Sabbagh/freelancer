@@ -62,6 +62,8 @@
                                 <span class="badge bg-success">نشط</span>
                                 @elseif($project->status === 'pending')
                                     <span class="badge bg-warning"> قيد التنفيذ</span>
+                                @elseif($project->status === 'closed')
+                                    <span class="badge bg-success"> مكتمل</span>
                                 @else 
                                     <span class="badge bg-danger">مغلق</span>
                                 @endif
