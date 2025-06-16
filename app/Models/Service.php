@@ -17,4 +17,9 @@ class Service extends Model
         return $this->hasMany(Project::class);
     }
 
+    public function jobPosts()
+    {
+        return $this->hasMany(JobPost::class);
+    }
+
 }

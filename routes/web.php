@@ -9,11 +9,15 @@ use App\Http\Controllers\Admin\WorkspaceController;
 use App\Http\Controllers\Chat\_ChatController;
 use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\Chat\ConversationController;
+use App\Http\Controllers\jobs\ProposalJobController;
 use App\Http\Controllers\JobPoster\Campany\CompanyController;
 // use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JobPoster\DadshbordController;
 use App\Http\Controllers\JobPoster\JobPosterController;
 use App\Http\Controllers\JobPoster\ProjectController;
+use App\Http\Controllers\Jobs\JobApplicationController;
+use App\Http\Controllers\jobs\JobPostBrowseController;
+use App\Http\Controllers\Jobs\JobsController;
 use App\Http\Controllers\JobSeeker\DashbordSeekerController;
 use App\Http\Controllers\JobSeeker\JobSeekerProposalController;
 use App\Http\Controllers\JobSeeker\ProfileController;
@@ -219,3 +223,39 @@ Route::get('/payment/confirm/{payment_id}', [ConfirmPayment::class, 'index'])
 Route::post('/payment/confirm', [ConfirmPayment::class, 'confirmPayment'])
     ->name('payment.confirm')
     ->middleware(['auth', 'job_seeker']);
+
+Route::get('job/add',[JobsController::class,'create'])
+    ->name('job.create')
+    ->middleware(['auth','job_poster']);
+
+Route::post('job/add',[JobsController::class,'store'])
+    ->name('job.store')
+    ->middleware(['auth','job_poster']);
+
+Route::get('my-jobs',[JobsController::class,'index'])
+    ->name('job.index')
+    ->middleware(['auth','job_poster']);
+
+Route::get('jobseeker/jobs', [JobPostBrowseController::class, 'index'])
+    ->middleware(['auth', 'job_seeker'])
+    ->name('jobseeker.jobs.index');
+
+Route::get('/job-details/{id}', [JobPostBrowseController::class, 'details'])
+    ->middleware(['auth', 'job_seeker'])
+    ->name('job.details');
+
+Route::post('/jobApplication/{job_id}', [JobApplicationController::class, 'store'])
+    ->middleware(['auth', 'job_seeker'])
+    ->name('job.application.store');
+
+Route::get('/job-applications/{job}', [JobApplicationController::class, 'showForJob'])
+    ->middleware(['auth', 'job_poster'])
+    ->name('poster.job.applications');
+
+Route::post('/job-application/{id}/select', [JobApplicationController::class, 'select'])
+    ->middleware(['auth', 'job_poster'])
+    ->name('poster.job.select');
+
+Route::get('/my-proposals-jobs', [ProposalJobController::class, 'index'])
+        ->middleware(['auth', 'job_seeker'])
+        ->name('jobseeker.proposals.jobs');

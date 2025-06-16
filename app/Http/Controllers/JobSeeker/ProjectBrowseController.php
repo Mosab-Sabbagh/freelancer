@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Log;
 
 class ProjectBrowseController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request ,projectService $projectService)
     {
-        $projects = ProjectService::filterProjects($request);
+        $projects = $projectService->filterProjects($request);
         $services = Service::all();
         
         if ($request->ajax()) {

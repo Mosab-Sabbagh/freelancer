@@ -10,12 +10,15 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-add"></i> اضافة وظيفة </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-file-alt"></i>  عرض الوظائف</a>
-                </li>
+                @if (Auth::user()->jobPoster->company)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('job.create')}}"><i class="fas fa-add"></i> اضافة وظيفة </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('job.index')}}"><i class="fas fa-file-alt"></i>  عرض الوظائف</a>
+                    </li>
+                @endif
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('jobposter.projects.create')}}"><i class="fas fa-tags"></i> اضافة خدمة</a>
                 </li>
