@@ -1,0 +1,4 @@
+git checkout pranchName
+# أجرِ تعديلاتك...
+git add .
+git commit -m "وصف التعديلات"

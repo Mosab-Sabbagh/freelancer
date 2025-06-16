@@ -32,4 +32,10 @@ class ProjectApplication extends Model
     {
         return $this->belongsTo(JobPoster::class);
     }
+    public function delivery()
+    {
+        return $this->hasOne(ProjectDelivery::class, 'project_id', 'project_id')
+                    ->where('job_seeker_id', $this->job_seeker_id);
+    }
+
 }

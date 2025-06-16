@@ -31,6 +31,9 @@
                         <p class="project-description mb-4 clamp-2-lines" style="white-space: pre-line;">
                             {{$proposal->notes}}
                         </p>
+                        @if($proposal->execution_status === 'in_progress')
+                            <a href="{{ route('deliveries.create', $proposal->project) }}" class="btn btn-success">تسليم المشروع</a>
+                        @endif
                     </div>
                 @endforeach
             @else

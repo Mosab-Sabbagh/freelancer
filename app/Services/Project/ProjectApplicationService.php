@@ -7,6 +7,7 @@ use App\Models\ProjectApplication;
 use App\Notifications\NewApplicationNotification;
 use App\Notifications\SeekerAccepted;
 use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\Gate;
 class ProjectApplicationService{
     public function storeApplication(array $data)
     {
@@ -49,7 +50,8 @@ class ProjectApplicationService{
         $project = Project::findOrFail($projectId);
 
         // التحقق من أن المستخدم الحالي هو صاحب المشروع
-        \Illuminate\Support\Facades\Gate::authorize('viewApplications', $project);
+        Gate::authorize('viewApplications', $project);
+        
         // جلب الطلبات للمشروع المحدد
         return ProjectApplication::with(['jobSeeker', 'jobPoster'])
             ->where('project_id', $projectId)

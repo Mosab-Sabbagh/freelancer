@@ -94,6 +94,24 @@
                                         class="btn btn-secondary btn-md d-flex align-items-center justify-content-center">
                                     <i class="fas fa-check-double me-2"></i> تم الاختيار بالفعل
                                 </button>
+
+                                @php
+                                    $delivery = \App\Models\ProjectDelivery::where('project_id', $application->project_id)
+                                        ->where('job_seeker_id', $application->job_seeker_id)
+                                        ->whereNull('confirmed_at')
+                                        ->first();
+                                @endphp
+
+                                @if($delivery)
+                                    <form action="{{ route('deliveries.confirm', $delivery->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                                class="btn btn-success btn-md d-flex align-items-center justify-content-center">
+                                            <i class="fas fa-check-double me-2"></i> تأكيد الاستلام
+                                        </button>
+                                    </form>
+                                @endif
+
                             @endif
                         </div>
                     </div>

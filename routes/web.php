@@ -21,6 +21,8 @@ use App\Http\Controllers\JobSeeker\ProjectBrowseController;
 use App\Http\Controllers\JobSeeker\WorkSamplesController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\ProjectApplication\ProjectApplicationController;
+use App\Http\Controllers\ProjectDelivery\ConfirmPayment;
+use App\Http\Controllers\ProjectDelivery\ProjectDeliveryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Broadcasting\Broadcasters\PusherBroadcaster;
@@ -198,3 +200,22 @@ Route::post('/broadcasting/auth', function (\Illuminate\Http\Request $request) {
 Route::get('/notifications/mark-as-read/{id}', [NotificationController::class, 'markAsRead'])
         ->name('notifications.read')
         ->whereUuid('id');
+
+
+        // routes/web.php
+Route::middleware(['auth'])->group(function () {
+    Route::get('/projects/{project}/deliver', [ProjectDeliveryController::class, 'create'])->name('deliveries.create');
+    Route::post('/projects/{project}/deliver', [ProjectDeliveryController::class, 'store'])->name('deliveries.store');
+});
+
+Route::post('/deliveries/confirm/{delivery}', [ProjectDeliveryController::class, 'confirm'])
+    ->name('deliveries.confirm');
+
+
+Route::get('/payment/confirm/{payment_id}', [ConfirmPayment::class, 'index'])
+    ->name('payment_confirm')
+    ->middleware(['auth', 'job_seeker']);
+
+Route::post('/payment/confirm', [ConfirmPayment::class, 'confirmPayment'])
+    ->name('payment.confirm')
+    ->middleware(['auth', 'job_seeker']);

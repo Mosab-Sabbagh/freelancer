@@ -22,5 +22,10 @@ class Project extends Model
     {
         return $this->hasMany(ProjectApplication::class);
     }
+    
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'payable');
+    }
 
 }

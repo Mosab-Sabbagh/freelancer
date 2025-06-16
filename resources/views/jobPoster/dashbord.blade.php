@@ -60,7 +60,6 @@
 
 
 
-            <!-- البطاقات المالية -->
             <div class="col-lg-8">
                 <div class="row">
                     <div class="col-md-6 mb-4">
@@ -78,7 +77,7 @@
                     <div class="col-md-6 mb-4">
                         <div class="card">
                             <div class="card-header">
-                                <i class="fas fa-chart-pie"></i>  عدد المشاريع الملغية
+                                <i class="fas fa-chart-pie"></i>  عدد المشاريع المكتملة
                             </div>
                             <div class="card-body">
                                 <div class="amount">{{$totalProjectsClosed}}</div>
@@ -99,7 +98,6 @@
                                         <h5>{{$item->title}}</h5>
                                         <p class="text-muted"> الفئة: <span class="text-success">{{$item->service->name}}</span> </p>
                                         {{-- <small class="text-muted">{{$item->description}} </small> --}}
-                                        
                                     </div>
                                 @endforeach
 
