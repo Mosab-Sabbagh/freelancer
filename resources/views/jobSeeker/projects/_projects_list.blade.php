@@ -15,7 +15,7 @@
             
             <span class="me-2"><i class="fas fa-user-circle me-1"></i>{{ $project->jobPoster->company?->name ??$project->jobPoster->user->name }}</span>
             <span class="me-2"><i class="far fa-clock me-1"></i> منذ {{ $project->created_at->diffForHumans() }}</span>
-            <span><i class="fas fa-paper-plane me-1"></i> 12 عروض</span>
+            <span><i class="fas fa-paper-plane me-1"></i> {{$project->applications_count}} عروض</span>
         </div>
         
         <!-- وصف المشروع -->

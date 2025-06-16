@@ -39,14 +39,10 @@ class JobSeeker extends Model
     {
         return $this->morphMany(Message::class, 'sender');
     }
-    // public function notifications()
-    // {
-    //     return $this->morphMany(Notification::class, 'notifiable');
-    // }
 
-    // public function unreadNotifications()
-    // {
-    //     return $this->notifications()->whereNull('read_at');
-    // }
+    public function jobApplication()
+    {
+        return $this->hasMany(JobApplication::class);
+    }
 
 }

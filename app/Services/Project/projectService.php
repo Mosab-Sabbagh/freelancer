@@ -30,23 +30,20 @@ class projectService {
         return Project::where('job_poster_id', Auth::user()->jobPoster->id)->get();
     }
 
-    public static function filterProjects($request)
+    public  function filterProjects($request)
     {
-        $query = Project::query();
-        
-        // فلترة حسب الخدمات
-        if ($request->has('service_id') && !empty($request->service_id)) {
-            $query->whereIn('service_id', $request->service_id);
-        }
-        
-        // فلترة حسب البحث
-        if ($request->has('search') && !empty($request->search)) {
-            $query->where(function($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->search . '%');
-            });
-        }
-        
-        return $query->paginate(20);
+        return Project::query()
+            ->withCount('applications')  // إذا كنت تحتاج عد المقترحات
+            ->with('service')        // فقط العلاقات الضرورية
+            ->when($request->filled('service_id'), function ($query) use ($request) {
+                $query->whereIn('service_id', (array)$request->service_id);
+            })
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $query->where('title', 'like', '%'.$request->search.'%');
+            })
+            ->latest()
+            ->paginate(20)
+            ->appends($request->query()); // للحفاظ على معايير البحث في الروابط
     }
 
 

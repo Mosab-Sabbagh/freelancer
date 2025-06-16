@@ -19,7 +19,13 @@
                     <a class="nav-link" href="{{route('jobseeker.projects.index')}}"><i class="fas fa-file-alt"></i> تصفح المشاريع</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('jobseeker.jobs.index')}}"><i class="fas fa-user-tie"></i> تصفح الوظائف</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{route('jobseeker.proposals')}}"><i class="fas fa-tags"></i> عروضي</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('jobseeker.proposals.jobs')}}"><i class="fas fa-paper-plane"></i> طلباتي</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('worksample.index',Auth::user()->id)}}"><i class="fas fa-briefcase"></i> أعمالي</a>
@@ -28,6 +34,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('workspace.showForSeeker')}}"><i class="fas fa-layer-group"></i> مساحات العمل</a>
                 </li>
+
+
                 
             </ul>
             @php
